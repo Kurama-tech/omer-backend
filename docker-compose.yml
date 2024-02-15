@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  dumdumapi:
+    build: .
+    restart: always
+    labels:
+      - traefik.http.routers.api.rule=Host(`omer-api.mamun.cloud`)
+      - traefik.http.routers.api.tls=true
+      - traefik.http.routers.api.tls.certresolver=lets-encrypt
+      - traefik.port=8003
+    networks:
+      - internal
+      - web
+    ports:
+      - "8003:8003"
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
